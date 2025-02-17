@@ -1,27 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Day Surprise</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link to the CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Week Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to left, lavender, white);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            text-align: center;
+            color: #5a3c69;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 28px; /* Smaller font size for mobile */
+            color: #9b4d96;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+            transition: color 1s ease;
+            margin-top: 20px;
+        }
+
+        .p {
+            font-size: 18px; /* Smaller font size for mobile */
+            color: #6f4e8c;
+            font-family: 'Lora', serif;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* Smaller gap for mobile */
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-family: 'Dancing Script', cursive;
+            padding: 12px 20px; /* Smaller padding for mobile */
+            background-color: #006a4e;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px; /* Smaller font size for mobile */
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover {
+            background-color: #6f2c7f;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            background-color: #6f2c7f;
+        }
+
+        .day-section {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, white, #d9f7e3);
+            border-radius: 25px;
+            width: 80%;
+            max-width: 650px;
+            height: auto;
+            opacity: 0;
+            transform: translateX(200%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .day-section.show {
+            display: flex;
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .emoji {
+            font-size: 80px;
+            width: 100%;
+            text-align: center;
+            animation: emojiPop 1s ease-out;
+        }
+
+        .message {
+            width: 100%;
+            font-size: 18px;
+            font-family: 'Lora', serif;
+            text-align: center;
+            font-weight: bold;
+            color: #6f4e8c;
+            margin-top: 10px;
+        }
+
+        .header {
+            font-size: 22px; /* Smaller font size for mobile */
+            font-weight: 700;
+            color: #9b4d96;
+            margin-bottom: 10px;
+        }
+
+        .day-section p {
+            font-size: 16px; /* Smaller font size for mobile */
+            color: #5a3c69;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(200%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Romantic Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #a8d5ba, #d9f7e3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .loading-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .p {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .day-section {
+                padding: 15px;
+            }
+
+            .emoji {
+                font-size: 50px;
+            }
+
+            .message {
+                font-size: 16px;
+            }
+
+            .header {
+                font-size: 20px;
+            }
+
+            .day-section p {
+                font-size: 14px;
+            }
+        }
+        .heart {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background-color: green;
+            clip-path: path("M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z");
+            animation: heartFloat 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        .loading-heart {
+            width: 100px;
+            height: 100px;
+            background-color: #006a4e;
+            position: relative;
+            transform: rotate(45deg);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .loading-heart::before,
+        .loading-heart::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background-color: #006a4e;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .loading-heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .loading-heart::after {
+            top: 0;
+            left: -50px;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(1.2); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+
+    </style>
+    <script>
+        let lastClickedButton = null;
+
+function toggleSection(id) {
+    var sections = document.getElementsByClassName('day-section');
+    for (var i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('show');
+    }
+    var section = document.getElementById(id);
+    section.classList.add('show');
+    if (lastClickedButton) {
+        lastClickedButton.disabled = false;
+    }
+    lastClickedButton = document.getElementById(id);
+    lastClickedButton.disabled = true;
+}
+
+function createHearts() {
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        document.body.appendChild(heart);
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        heart.style.width = Math.random() * 10 + 30 + "px";
+        heart.style.height = heart.style.width;
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }, 600);
+}
+
+window.onload = function() {
+    createHearts();
+    setTimeout(function () {
+        document.querySelector('.loading-screen').classList.add('hide');
+    }, 3000);
+};
+
+    </script>
 </head>
 <body>
-  <div class="card">
-    <h1>Happy Valentine's Week! ❤️</h1>
-    <p>Click on a day to get a special surprise!</p>
-    <div class="button-container">
-      <button onclick="showSurprise('Rose Day: Here’s a beautiful rose just for you! 🌹')">Rose Day</button>
-      <button onclick="showSurprise('Propose Day: Will you be mine forever? 💍')">Propose Day</button>
-      <button onclick="showSurprise('Chocolate Day: Here’s some sweet chocolate for my sweetheart! 🍫')">Chocolate Day</button>
-      <button onclick="showSurprise('Teddy Day: A warm teddy hug for you! 🧸')">Teddy Day</button>
-      <button onclick="showSurprise('Promise Day: I promise to always be with you. 🤝')">Promise Day</button>
-      <button onclick="showSurprise('Hug Day: A big warm hug just for you! 🤗')">Hug Day</button>
-      <button onclick="showSurprise('Kiss Day: Sending you a sweet kiss! 💋')">Kiss Day</button>
-      <button onclick="showSurprise('Valentine’s Day: Love you today and forever! ❤️')">Valentine’s Day</button>
+    <div class="loading-screen">
+        <div class="loading-heart"></div>
     </div>
-  </div>
+    <div class="container">
+        <h1>Happy Valentine's Week, Aninda!</h1>
+        <p class="p">Each day is special, just like you! ❤️</p>
+        
+        <div class="btn-container">
+            <button class="btn" onclick="toggleSection('rose-day')">🌹 Rose Day</button>
+            <button class="btn" onclick="toggleSection('propose-day')">💍 Propose Day</button>
+            <button class="btn" onclick="toggleSection('chocolate-day')">🍫 Chocolate Day</button>
+            <button class="btn" onclick="toggleSection('teddy-day')">🧸 Teddy Day</button>
+            <button class="btn" onclick="toggleSection('promise-day')">🤞 Promise Day</button>
+            <button class="btn" onclick="toggleSection('hug-day')">🤗 Hug Day</button>
+            <button class="btn" onclick="toggleSection('kiss-day')">😘 Kiss Day</button>
+            <button class="btn" onclick="toggleSection('valentines-day')">❤️ Valentine's Day</button>
+        </div>
 
-  <script src="script.js"></script> <!-- Link to the JavaScript file -->
+        <div class="day-section" id="rose-day">
+            <div class="emoji">🌹</div>
+            <div class="message">
+                <div class="header">Rose Day - February 7</div>
+                <p>Roses for the love of my life!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="propose-day">
+            <div class="emoji">💍</div>
+            <div class="message">
+                <div class="header">Propose Day - February 8</div>
+                <p>Will you be mine forever?</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="chocolate-day">
+            <div class="emoji">🍫</div>
+            <div class="message">
+                <div class="header">Chocolate Day - February 9</div>
+                <p>Sweet treats for my sweet love!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="teddy-day">
+            <div class="emoji">🧸</div>
+            <div class="message">
+                <div class="header">Teddy Day - February 10</div>
+                <p>Sending you a teddy bear hug!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="promise-day">
+            <div class="emoji">🤞</div>
+            <div class="message">
+                <div class="header">Promise Day - February 11</div>
+                <p>I promise to always cherish you!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="hug-day">
+            <div class="emoji">🤗</div>
+            <div class="message">
+                <div class="header">Hug Day - February 12</div>
+                <p>A warm hug to show how much I care!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="kiss-day">
+            <div class="emoji">😘</div>
+            <div class="message">
+                <div class="header">Kiss Day - February 13</div>
+                <p>Sealing my love with a kiss!</p>
+            </div>
+        </div>
+
+        <div class="day-section" id="valentines-day">
+            <div class="emoji">💕</div>
+            <div class="message">
+                <div class="header">Valentine's Day - February 14</div>
+                <p>Happy Valentine's Day to my love!</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
